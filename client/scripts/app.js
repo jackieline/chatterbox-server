@@ -32,7 +32,7 @@ var app = {
     // Poll for new messages
     setInterval(function() {
       app.fetch(true);
-    }, 55555);
+    }, 2000);
   },
 
   
@@ -76,16 +76,16 @@ var app = {
         var mostRecentMessage = data.results[data.results.length - 1];
 
         // Only bother updating the DOM if we have a new message
-        if (mostRecentMessage.objectId !== app.lastMessageId) {
-          // Update the UI with the fetched rooms
-          app.renderRoomList(data.results);
+        // if (mostRecentMessage.objectId !== app.lastMessageId) {
+        // Update the UI with the fetched rooms
+        app.renderRoomList(data.results);
 
-          // Update the UI with the fetched messages
-          app.renderMessages(data.results, animate);
+        // Update the UI with the fetched messages
+        app.renderMessages(data.results, animate);
 
-          // Store the ID of the most recent message
-          app.lastMessageId = mostRecentMessage.objectId;
-        }
+        // Store the ID of the most recent message
+        app.lastMessageId = mostRecentMessage.objectId;
+        // }
       },
       error: function(error) {
         console.error('chatterbox: Failed to fetch messages', error);
@@ -112,9 +112,9 @@ var app = {
     }
 
     // Make it scroll to the top
-    if (animate) {
-      $('body').animate({scrollTop: '0px'}, 'fast');
-    }
+    // if (animate) {
+    //   $('body').animate({scrollTop: '0px'}, 'fast');
+    // }
   },
 
   renderRoomList: function(messages) {
@@ -147,6 +147,7 @@ var app = {
   },
 
   renderMessage: function(message) {
+   
     if (!message.roomname) {
       message.roomname = 'lobby';
     }

@@ -1,3 +1,5 @@
+fs = require('fs');
+
 /*************************************************************
 
 You should implement your request handler function in this file.
@@ -18,12 +20,14 @@ var defaultCorsHeaders = {
   'access-control-max-age': 10 // Seconds.
 };
 var messages = {
-  results: [{
-    username: 'jack',
-    text: 'im a bully',
-    roomname: 'lobby'
-  }]
+  results: [
+    // username: 'jack',
+    // text: 'im a bully',
+    // roomname: 'lobby'
+  ]
 };
+
+
 
 var counter = 5000;
 
@@ -67,10 +71,11 @@ var requestHandler = function(request, response) {
     //Send messages back to the user   
     //implied messages are stored "somewhere"
     statusCode = 200;
+    response.setHeader('Content-Type', 'application/json');
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify(messages));
-    //GET DATA SOMEHOW???
-    //REQUEST IS USER GETTING DATA FROM PERSPECTIVE OF SERVER
+    // fs.readF
+    console.log(messages.results[0], '!!!!!!!');
   } 
   if (requestType === 'POST' && statusCode !== 404) {
     // receive message from user
@@ -84,9 +89,11 @@ var requestHandler = function(request, response) {
     });
     request.on('end', () => {
       temp = Buffer.concat(temp).toString();
-      console.log(typeof temp, 'asdasdasdasd');
+      console.log(temp, 'asdasdasdasd');
       //console.log('!!!!!!!!!!!',JSON.parse(temp));
       messages.results.push(JSON.parse(temp));
+      fs.appendFile('/Users/student/hrsf85-chatterbox-server/server/dataFile.txt', temp);
+      //receiving msgs from client
       //console.log(messages.results);
     });
     //console.log('=+++++++++++++++',messages.results);
@@ -100,10 +107,10 @@ var requestHandler = function(request, response) {
 
   // Tell the client we are sending them plain text.
   //jackie put this in will prob use later
-  //response.setHeader('Content-Type', 'application/json');
+  // response.setHeader('Content-Type', 'application/json');
   // You will need to change this if you are sending something
   // other than plain text, like JSON or HTML.
-  headers['Content-Type'] = 'text/plain';
+  // headers['Content-Type'] = 'text/plain';
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
