@@ -120,7 +120,7 @@ var app = {
   renderRoomList: function(messages) {
     app.$roomSelect.html('<option value="__newRoom">New room...</option>');
 
-    if (messages) {
+    if (messages) { 
       var rooms = {};
       messages.forEach(function(message) {
         var roomname = message.roomname;

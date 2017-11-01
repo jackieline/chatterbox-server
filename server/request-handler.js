@@ -60,6 +60,7 @@ var requestHandler = function(request, response) {
   //check if url works
   if (request.url !== '/classes/messages') {
     statusCode = 404;
+    // response.end(null);
   } 
   
   if (requestType === 'OPTIONS') {
@@ -75,10 +76,10 @@ var requestHandler = function(request, response) {
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify(messages));
     // fs.readF
-    console.log(messages.results[0], '!!!!!!!');
+    // console.log(messages.results[0], '!!!!!!!');
   } 
   if (requestType === 'POST' && statusCode !== 404) {
-    // receive message from user
+    // receive message from user   
     // add to message storage somehow
     
     var temp = [];
